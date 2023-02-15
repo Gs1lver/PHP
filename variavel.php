@@ -51,4 +51,6 @@ echo $_SERVER["HTTP_USER_AGENT"] . "<br>";
 echo $_SERVER["REMOTE_ADDR"] . "<br>";
 echo $_SERVER["SCRIPT_NAME"] . "<br>";
 
+ // if ("1" === "1") operador "===" compara se dois valores são iguais em valor e tipo
+ // if (1 <> "1") "<>" tambem é usado como diferença
 ?>
