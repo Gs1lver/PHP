@@ -1,5 +1,7 @@
 <?php
 
+function consultar(){}
+function cadastrar(){}
 $op = 3;
 switch($op){
     case 1:
@@ -15,7 +17,7 @@ switch($op){
         break;
 }
 
-echo "<br><br> oi após o break";
+echo "<br><br> oi após o break" . "<br>";
 
 $x = 2;
 
