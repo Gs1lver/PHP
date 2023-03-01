@@ -29,5 +29,5 @@ $resultado = ($x%2)==0 ? "par" : "impar"; //ternária
 
 echo $resultado;
 
-($op == 1) == cadastrar() : consultar(); // pode usar com funções
+($op == 1) ? cadastrar() : consultar(); // pode usar com funções
 ?>
