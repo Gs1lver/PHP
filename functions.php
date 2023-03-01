@@ -19,9 +19,6 @@
     </style>
 </head>
 <body>
-    
-</body>
-
 
 <?php
 
@@ -54,4 +51,5 @@ if($media >= 6.0){
 }
 
 ?>
+</body>
 </html>
