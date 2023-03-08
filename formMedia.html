@@ -10,14 +10,14 @@
 
     <h1>Calculo de Media</h1>
 
-    <form action="calcMedia.php" method="post"> <!-- get só le get, post só le post, request le os dois-->
+    <form action="calcMedia.php" method="get"> <!-- get só le get, post só le post, request le os dois-->
         Nota1: <br>
-        <input type="text" name="nota1">
+        <input type="text" name="nota1" min="6" > <!-- utilizamos o atributo name para o php ao inves do id -->
 
         <br><br>
 
         Nota2: <br>
-        <input type="text" name="nota2">
+        <input type="text" name="nota2" min="6" >
 
         <br><br>
 
