@@ -1,4 +1,52 @@
 <?php
+
+    if($_SERVER["REQUEST_METHOD"] === 'POST'){
+
+        $msgMedia = "";
+        $msgResulado = "";
+
+        function calcMedia($n1, $n2){
+            $media = ($n1 + $n2)/2;
+            return $media;
+    }
+
+    $n1 = $_POST["nota1"]; 
+    $n2 = $_POST["nota2"];
+
+    if(trim($n1) == ""){
+        $msgN1 = "A nota 1 é obrigatória";
+        $msgN2 = "";
+    } 
+    else if (trim($n2) == "") {
+        $msgN1 = "";
+        $msgN2 = "A nota 2 é obrigatória";
+    } 
+
+    else{
+        $msgN1 = "";
+        $msgN2 = "";
+
+        $media = calcMedia($n1, $n2);
+    
+        //echo "Média = " . $media . "<br>";
+        $msgMedia = "Média = " . $msgMedia . "<br>";
+
+        if($media >= 6.0){
+            echo "<span id = 'aprovado'>APROVADO</span>";
+        } else{
+            echo "<span id = 'reprovado'>REPROVADO</span>";
+        }
+    }
+} else {
+    $msgMedia = "";
+    $msgResulado = "";
+    $msgN1 = "";
+    $msgN2 = "";
+}
+
+?>
+<?php
+
     if($_SERVER["REQUEST_METHOD"] === 'GET'){
         $msgN1 = "";
         $msgN2 = "";   
@@ -45,38 +93,12 @@
         <input type="submit" value="Calcular">
     </form>
     
+    <hr>
+    
+    <?= $msgMedia;?>
+    <br>
+    <?= $msgResulado;?>
+
 </body>
 </html>
 
-<?php
-
-    if($_SERVER["REQUEST_METHOD"] === 'POST'){
-
-        function calcMedia($n1, $n2){
-            $media = ($n1 + $n2)/2;
-            return $media;
-    }
-
-    $n1 = $_POST["nota1"]; 
-    $n2 = $_POST["nota2"];
-
-    if(trim($n1) == ""){
-        $msgN1 = "A nota 1 é obrigatória";
-    } 
-        else if (trim($n2) == "") {
-        $msgN2 = "A nota 2 é obrigatória";
-    } 
-
-    else{
-        $media = calcMedia($n1, $n2);
-    
-        echo "Média = " . $media . "<br>";
-    
-        if($media >= 6.0){
-            echo "<span id = 'aprovado'>APROVADO</span>";
-        } else{
-            echo "<span id = 'reprovado'>REPROVADO</span>";
-        }
-    }
-}
-?>
