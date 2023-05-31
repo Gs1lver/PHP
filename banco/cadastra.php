@@ -72,7 +72,6 @@
                 echo "<span id='warning'>RA e Nome são obrigatórios</span>";
             } else {
                 include("conexaoBD.php");
-
                 //verificando se o RA já existe no BD para n dar exception
                 $stmt = $pdo->prepare("select * from alunosPhp where ra = :ra");
                 $stmt->bindParam(':ra', $ra);
@@ -82,7 +81,7 @@
 
                 if($rows <= 0){
                     $stmt = $pdo->prepare("insert into alunosPhp (ra, nome, curso) values (:ra, :nome, :curso)");
-                    $stmt->bindParam(':ra', $ra);
+                    $stmt->bindParam(':ra', $ra); //binda o parametro :ra com a variavel $ra
                     $stmt->bindParam(':nome', $nome);
                     $stmt->bindParam(':curso', $curso);
                     $stmt->execute();
@@ -96,7 +95,7 @@
             echo 'Error: ' . $e->getMessage();
         }
         
-        $pdo = null;
+        $pdo = null; //fechando a conexão
     }
 ?>
 
