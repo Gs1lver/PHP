@@ -22,16 +22,15 @@
 
 <?php
 
-    if($_SERVER["REQUEST METHOD"] === 'POST' ){
+    if($_SERVER["REQUEST_METHOD"] === 'POST' ){
         include("conexaoBD.php");
         if(isset($_POST['ra']) && ($_POST['ra'] != "")){
             $ra = $_POST['ra'];
-            $stmt = $pdo->prepare("SELECT * FROM alunos WHERE ra = :ra order by curso, nome");
+            $stmt = $pdo->prepare("SELECT * FROM alunosPhp WHERE ra = :ra order by curso, nome");
             $stmt->bindParam(':ra', $ra);
         } else{
-            $stmt = $pdo->prepare("SELECT * FROM alunos order by curso, nome");
+            $stmt = $pdo->prepare("SELECT * FROM alunosPhp order by curso, nome");
         }
-
         try{
             //buscando dados
             $stmt->execute();
@@ -61,6 +60,7 @@
             echo 'Error: ' . $e->getMessage();
         }
 
-        $pdo = null;
-    }
+        $pdo = null; //fecha conexão
+
+    } //fechamento do if do post
 ?>
