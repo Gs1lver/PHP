@@ -53,6 +53,14 @@
                 echo "<td>" . $row['curso'] . "</td>";
                 echo "</tr>";
             }
+            echo "</table><br>";
+            echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
+            echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
+            echo "</form>";
+        } catch (PDOException $e){
+            echo 'Error: ' . $e->getMessage();
         }
+
+        $pdo = null;
     }
 ?>
