@@ -2,65 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CRUD - Controle de alunos</title>
 </head>
-<body>
-    <a href="index.html"></a>
-    <hr>
 
-    <h2>Consulta de Alunos</h2>
-    <form action="post">
-        RA: <br>
+<body>
+
+<a href="index.html">Home</a>
+<hr>
+
+<h2>Consulta de Alunos</h2>
+<div>
+    <form method="post">
+
+        RA:<br>
         <input type="text" size="10" name="ra">
-        <input type="submit" value="consultar">
+        <input type="submit" value="Consultar">
         <hr>
     </form>
+</div>
+
 </body>
 </html>
 
 <?php
+    include("conexaoBD.php");
 
-    if($_SERVER["REQUEST_METHOD"] === 'POST' ){
-        include("conexaoBD.php");
-        if(isset($_POST['ra']) && ($_POST['ra'] != "")){
-            $ra = $_POST['ra'];
-            $stmt = $pdo->prepare("SELECT * FROM alunosPhp WHERE ra = :ra order by curso, nome");
-            $stmt->bindParam(':ra', $ra);
-        } else{
-            $stmt = $pdo->prepare("SELECT * FROM alunosPhp order by curso, nome");
-        }
-        try{
-            //buscando dados
-            $stmt->execute();
+     if ($_SERVER["REQUEST_METHOD"] === 'POST') {   
 
-            echo "<form method='post'>";
-            echo "<table border='1px'>";
-            echo "<tr>";
-            echo "<th></th>";
-            echo "<th>RA</th>";
-            echo "<th>Nome</th>";
-            echo "<th>Curso</th>";
-            echo "</tr>";
+         if (isset($_POST["ra"]) && ($_POST["ra"] != "")) {
+             $ra = $_POST["ra"];
+             $stmt = $pdo->prepare("select * from alunosPhp 
+             where ra= :ra order by curso, nome");
+             $stmt->bindParam(':ra', $ra);
+         } else {
+             $stmt = $pdo->prepare("select * from alunosPhp 
+             order by curso, nome");
+         }
 
-            while($row = $stmt->fetch()){
-                echo "<tr>";
-                echo "<td><input type='radio' name='ra' value='" . $row['ra'] . "'></td>";
-                echo "<td>" . $row['ra'] . "</td>";
-                echo "<td>" . $row['nome'] . "</td>";
-                echo "<td>" . $row['curso'] . "</td>";
-                echo "</tr>";
-            }
-            echo "</table><br>";
-            echo "<button type='submit' formaction='remove.php'>Excluir Aluno</button>";
-            echo "<button type='submit' formaction='edicao.php'>Editar Aluno</button>";
-            echo "</form>";
-        } catch (PDOException $e){
-            echo 'Error: ' . $e->getMessage();
-        }
+         try {
+             //buscando dados
+             $stmt->execute();
 
-        $pdo = null; //fecha conexão
+             echo "<form method='post'><table border='1px'>";
+             echo "<tr><th></th><th>RA</th><th>Nome</th><th>Curso</th></tr>";
 
-    } //fechamento do if do post
+             while ($row = $stmt->fetch()) {
+                 echo "<tr>";
+                 echo "<td><input type='radio' name='raAluno' 
+                      value='" . $row['ra'] . "'>";
+                 echo "<td>" . $row['ra'] . "</td>";
+                 echo "<td>" . $row['nome'] . "</td>";
+                 echo "<td>" . $row['curso'] . "</td>";
+                 echo "</tr>";
+             }
+
+             echo "</table><br>
+             
+             <button type='submit' formaction='remove.php'>Excluir Aluno</button>
+             <button type='submit' formaction='edicao.php'>Editar Aluno</button>
+             
+             </form>";
+
+
+         } catch (PDOException $e) {
+             echo 'Error: ' . $e->getMessage();
+         }
+
+         $pdo = null;
+     }
 ?>

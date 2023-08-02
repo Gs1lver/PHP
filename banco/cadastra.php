@@ -61,42 +61,45 @@
 </html>
 
 <?php
-    if ($_SERVER["REQUEST_METHOD"]=== 'POST'){
 
-        try{
+   //inserindo dados
+
+    if ($_SERVER["REQUEST_METHOD"] === 'POST') {
+
+        include("conexaoBD.php");
+
+        try {            
             $ra = $_POST["ra"];
             $nome = $_POST["nome"];
             $curso = $_POST["curso"];
 
-            if((trim($ra) == "") || (trim($nome)== "")){
-                echo "<span id='warning'>RA e Nome são obrigatórios</span>";
+            if ((trim($ra) == "") || (trim($nome) == "")) {
+                echo "<span id='warning'>RA e nome são obrigatórios!</span>";
             } else {
-                include("conexaoBD.php");
-                //verificando se o RA já existe no BD para n dar exception
+                //verificando se o RA informado já existe no BD para não dar exception
                 $stmt = $pdo->prepare("select * from alunosPhp where ra = :ra");
                 $stmt->bindParam(':ra', $ra);
                 $stmt->execute();
 
                 $rows = $stmt->rowCount();
 
-                if($rows <= 0){
-                    $stmt = $pdo->prepare("insert into alunosPhp (ra, nome, curso) values (:ra, :nome, :curso)");
-                    $stmt->bindParam(':ra', $ra); //binda o parametro :ra com a variavel $ra
+                if ($rows <= 0) {
+                    $stmt = $pdo->prepare("insert into alunosPhp (ra, nome, curso) values(:ra, :nome, :curso)");
+                    $stmt->bindParam(':ra', $ra);
                     $stmt->bindParam(':nome', $nome);
                     $stmt->bindParam(':curso', $curso);
                     $stmt->execute();
 
-                    echo "<span id='sucess'>Aluno cadastrado com sucesso</span>";
+                    echo "<span id='sucess'>Aluno Cadastrado!</span>";
                 } else {
-                    echo "<span id='error'>RA já cadastrado</span>";
+                    echo "<span id='error'>Ra já existente!</span>";
                 }
             }
-        } catch(PDOExceptio $e){
+
+        } catch(PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
-        
-        $pdo = null; //fechando a conexão
+
+        $pdo = null;
     }
 ?>
-
-
