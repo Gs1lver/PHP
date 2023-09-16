@@ -49,7 +49,9 @@ if (!isset($_POST["raAluno"])) {
                 $qualidade = "selected";
             }
 
-            $foto = $row['foto'];
+            //$foto = $row['foto']; - versão com a foto no campo blob
+
+            $arquivoFoto = $row['arquivoFoto']; // versão que grava o caminho da foto
 
             //enctype='multipart/form-data' para salvar as imagens como binário no banco
             echo "<form method='post' action='altera.php' enctype='multipart/form-data'>\n
@@ -70,10 +72,10 @@ if (!isset($_POST["raAluno"])) {
              
              Foto:<br>";
 
-             if ($foto == ""){
+             if ($arquivoFoto == null){
                 echo "-<br><br>";
              } else {
-                echo "<img src='data:image;base64," . base64_encode($foto) . "' width='50px' height='50px'><br><br>";
+                echo "<img src=" . $arquivoFoto . " width='50px' height='50px'><br><br>";
              }
 
             echo "
